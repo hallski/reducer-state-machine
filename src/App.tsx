@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FC } from "react"
+import { useEffectReducer } from "use-effect-reducer"
+import "./App.css"
+import { stateMachineReducer } from "./mapped-states-reducer"
+import { StateContext } from "./state-context"
+import { AppState, states } from "./states"
+import { ConfirmComponent } from "./states/confirm"
+import { FailedComponent } from "./states/failed"
+import { FinishedComponent } from "./states/finished"
+import { FormComponent } from "./states/show-form"
+import { SubmittingComponent } from "./states/submitting"
+import { AppEffect, AppEvent } from "./types"
 
-function App() {
+const reducer = stateMachineReducer(states)
+
+export const App: FC<{}> = () => {
+  const [state, dispatch] = useEffectReducer<AppState, AppEvent, AppEffect>(
+    reducer,
+    { status: "showForm" },
+    {
+      submitData: (_state, _effect, dispatch) => {
+        setTimeout(() => {
+          dispatch({
+            type: "error",
+            error: new Error("Darn it, something failed"),
+          })
+        }, 1000)
+      },
+      log: (_state, effect, _dispatch) => {
+        console.log(effect.message)
+      },
+    }
+  )
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <StateContext.Provider value={{ dispatch }}>
+      {state.status === "showForm" && <FormComponent state={state} />}
+      {state.status === "confirm" && <ConfirmComponent state={state} />}
+      {state.status === "submitting" && <SubmittingComponent state={state} />}
+      {state.status === "finished" && <FinishedComponent state={state} />}
+      {state.status === "failed" && <FailedComponent state={state} />}
+    </StateContext.Provider>
+  )
 }
-
-export default App;
