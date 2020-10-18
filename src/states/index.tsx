@@ -20,5 +20,3 @@ export const states: StatesMap<AppState, AppEvent, AppEffect> = {
   finished,
   failed,
 }
-
-type X = AppState & { status: "showForm" }

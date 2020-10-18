@@ -1,20 +1,22 @@
 import React, { FC, useContext, useState } from "react"
 import { StateContext } from "../state-context"
-import { StateReducer } from "./state-reducer"
+import { SubState } from "./state-reducer"
 
 export type ShowFormState = { status: "showForm" }
 
-export const showForm: StateReducer<ShowFormState> = (state, event, _exec) => {
-  switch (event.type) {
-    case "submit":
-      return {
-        status: "confirm",
-        username: event.username,
-        password: event.password,
-      }
-    default:
-      return state
-  }
+export const showForm: SubState<ShowFormState> = {
+  reducer: (state, event, _exec) => {
+    switch (event.type) {
+      case "submit":
+        return {
+          status: "confirm",
+          username: event.username,
+          password: event.password,
+        }
+      default:
+        return state
+    }
+  },
 }
 
 export const FormComponent: FC<{ state: ShowFormState }> = ({ state }) => {

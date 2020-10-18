@@ -21,10 +21,9 @@ export const App: FC<{}> = () => {
       submitData: (_state, _effect, dispatch) => {
         setTimeout(() => {
           dispatch({
-            type: "error",
-            error: new Error("Darn it, something failed"),
+            type: "success",
           })
-        }, 1000)
+        }, 2000)
       },
       log: (_state, effect, _dispatch) => {
         console.log(effect.message)

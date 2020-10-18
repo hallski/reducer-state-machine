@@ -1,27 +1,25 @@
 import React, { FC, useContext } from "react"
 import { StateContext } from "../state-context"
-import { StateReducer } from "./state-reducer"
+import { SubState } from "./state-reducer"
 
 export type ConfirmState = {
   status: "confirm"
   username: string
   password: string
 }
-export const confirm: StateReducer<ConfirmState> = (state, event, exec) => {
-  switch (event.type) {
-    case "confirm":
-      exec({
-        type: "submitData",
-        username: state.username,
-        password: state.password,
-      })
-      return {
-        ...state,
-        status: "submitting",
-      }
-    default:
-      return state
-  }
+
+export const confirm: SubState<ConfirmState> = {
+  reducer: (state, event, _exec) => {
+    switch (event.type) {
+      case "confirm":
+        return {
+          ...state,
+          status: "submitting",
+        }
+      default:
+        return state
+    }
+  },
 }
 
 export const ConfirmComponent: FC<{ state: ConfirmState }> = ({ state }) => {
