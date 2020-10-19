@@ -1,6 +1,6 @@
 import React, { FC, useContext } from "react"
 import { StateContext } from "../state-context"
-import { SubState } from "./state-reducer"
+import { AppStateHandler } from "./app-state-handler"
 
 export type ConfirmState = {
   status: "confirm"
@@ -8,7 +8,7 @@ export type ConfirmState = {
   password: string
 }
 
-export const confirm: SubState<ConfirmState> = {
+export const confirm: AppStateHandler<ConfirmState> = {
   reducer: (state, event, _exec) => {
     switch (event.type) {
       case "confirm":

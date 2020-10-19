@@ -1,3 +1,4 @@
+
 export type AppEffect =
   | { type: "submitData"; username: string; password: string }
   | { type: "log", message: string}
@@ -11,3 +12,4 @@ export type AppEvent =
   | { type: "error"; error: Error }
   | { type: "stmEntry" }
   | { type: "stmExit" }
+

@@ -13,7 +13,7 @@ export type StateEffectReducer<
   exec: EffectReducerExec<TInState, TEvent, TEffect>
 ) => TOutState
 
-export type State<TInState extends StateObject,
+export type StateHandler<TInState extends StateObject,
 TOutState extends StateObject,
 TEvent extends EventObject,
 TEffect extends EffectObject<TInState, TEvent>> = {
@@ -27,7 +27,7 @@ export type StatesMap<
   TEvent extends EventObject,
   TEffect extends EffectObject<TState, TEvent>
 > = {
-  [key in TState["status"]]: State<Extract<TState, { status: key}>, TState, TEvent, TEffect>
+  [key in TState["status"]]: StateHandler<Extract<TState, { status: key}>, TState, TEvent, TEffect>
 }
 
 export const stateMachineReducer = <

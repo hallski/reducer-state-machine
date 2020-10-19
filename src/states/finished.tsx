@@ -1,9 +1,9 @@
 import React from "react"
 import { FC } from "react"
-import { SubState } from "./state-reducer"
+import { AppStateHandler } from "./app-state-handler"
 
 export type FinishedState = { status: "finished"; username: string }
-export const finished: SubState<FinishedState> = {
+export const finished: AppStateHandler<FinishedState> = {
   reducer: (state, _event, _exec) => {
     // Final state
     return state

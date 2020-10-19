@@ -1,11 +1,11 @@
 import React from "react"
 import { FC, useContext } from "react"
 import { StateContext } from "../state-context"
-import { SubState } from "./state-reducer"
+import { AppStateHandler } from "./app-state-handler"
 
 export type FailedState = { status: "failed"; message: string }
 
-export const failed: SubState<FailedState> = {
+export const failed: AppStateHandler<FailedState> = {
   reducer: (state, event, _exec) => {
     switch (event.type) {
       case "tryAgain":

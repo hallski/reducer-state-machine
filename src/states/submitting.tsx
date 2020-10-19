@@ -1,7 +1,7 @@
 import React from "react"
 import { FC, useContext } from "react"
 import { StateContext } from "../state-context"
-import { SubState } from "./state-reducer"
+import { AppStateHandler } from "./app-state-handler"
 
 export type SubmittingState = {
   status: "submitting"
@@ -9,7 +9,7 @@ export type SubmittingState = {
   password: string
 }
 
-export const submitting: SubState<SubmittingState> = {
+export const submitting: AppStateHandler<SubmittingState> = {
   entry: (state, exec) => {
     exec({ type: "log", message: "Entry" })
     exec({
@@ -21,8 +21,6 @@ export const submitting: SubState<SubmittingState> = {
   },
   reducer: (state, event, exec) => {
     switch (event.type) {
-      case "stmEntry":
-        return state
       case "cancel":
         return { status: "showForm" }
       case "success":

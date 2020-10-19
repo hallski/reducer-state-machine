@@ -1,10 +1,10 @@
 import React, { FC, useContext, useState } from "react"
 import { StateContext } from "../state-context"
-import { SubState } from "./state-reducer"
+import { AppStateHandler } from "./app-state-handler"
 
 export type ShowFormState = { status: "showForm" }
 
-export const showForm: SubState<ShowFormState> = {
+export const showForm: AppStateHandler<ShowFormState> = {
   reducer: (state, event, _exec) => {
     switch (event.type) {
       case "submit":
